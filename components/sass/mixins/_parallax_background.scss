@@ -1,0 +1,23 @@
+@mixin backImage($image,
+	$height: 100vh,
+	$bgPos : center center)
+{
+	background: url($image);
+	background-repeat: no-repeat;
+	background-attachment: fixed;
+	background-position: $bgPos;
+	-webkit-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+	height: $height;
+}
+
+
+/* Usage Examples */
+/* .electronics-abc-bg {
+	@include backImage('http://arkdesignusa.com/newshop/media/products/electronics/abc_advanced_boost_controller/ArkDesignUSA_advanced_boost_controller_3.jpg', 400px, center center)
+}
+
+.electronics-atcc-bg {
+	@include backImage('http://arkdesignusa.com/newshop/media/products/electronics/atcc_throttle-controller/ArkDesignUSA-atcc-throttle-controller-2.jpg', 400px, center center)
+} */

@@ -70,6 +70,10 @@ gulp.task('compass', function() {
   gulp.src(sassSources)
     .pipe(compass({
         css: outputDir + 'css',
+
+        // Use to export css to sftp
+        /*css: '../ftp/css',*/
+        // ******
     	sass: 'components/sass',
     	image: outputDir + 'images',
     	style: sassStyle,
@@ -85,6 +89,9 @@ gulp.task('watch', function(){
     gulp.watch(coffeeSources, ['coffee']);
     gulp.watch(jsSources, ['js']);
     gulp.watch('components/sass/*.scss', ['compass']);
+    // Use to watch scss in sub-directory
+    gulp.watch('components/sass/**/*.scss', ['compass']);
+    // *****
     gulp.watch('builds/development/*.html', ['html']);
     gulp.watch('builds/development/js/*.json', ['json']);
     gulp.watch('builds/development/images/**/*.*', ['json'])

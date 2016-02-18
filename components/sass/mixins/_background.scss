@@ -1,0 +1,25 @@
+/* @mixin cover-background($img-url) {
+    background: url($img-url) no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+} */
+
+@mixin cover-background($img-url,
+	$bgPos:"center center") {
+  background: url($img-url);
+  background-repeat: no-repeat;
+  background-position: $bgPos;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+/* Usage Example */
+/* 
+	.class {
+		@include cover-background('http://arkdesignusa.com/newshop/media/products/electronics/abc_advanced_boost_controller/ArkDesignUSA_advanced_boost_controller_3.jpg', )
+	}
+ */
