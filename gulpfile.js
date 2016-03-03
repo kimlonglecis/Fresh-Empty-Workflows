@@ -11,7 +11,7 @@ var gulp = require('gulp');
     minImage = require('gulp-imagemin');
     pngcrush = require('imagemin-pngcrush');
 	concat = require('gulp-concat');
-
+    cleanCSS = require('gulp-clean-css');
 
 
 var env,
@@ -65,6 +65,13 @@ gulp.task('js', function() {
     .pipe(connect.reload())
 });
 
+/* -------Gulp-uglify----------*/
+gulp.task('jsMinify', function() {
+  return gulp.src("Source")
+    .pipe(uglify())
+    .pipe(gulp.dest("Dest"));
+});
+
 /* -------Gulp-Compass----------*/
 gulp.task('compass', function() {
   gulp.src(sassSources)
@@ -84,6 +91,13 @@ gulp.task('compass', function() {
         .pipe(connect.reload())
 });
 
+/* -------Gulp-clean-css----------*/
+gulp.task('cssMinify', function() {
+  return gulp.src('Sources')
+    .pipe(cleanCSS({compatibility: 'ie8'}))
+    .pipe(gulp.dest('Dest'));
+});
+
 /* -------Gulp-Watch----------*/
 gulp.task('watch', function(){
     gulp.watch(coffeeSources, ['coffee']);
@@ -91,6 +105,12 @@ gulp.task('watch', function(){
     gulp.watch('components/sass/*.scss', ['compass']);
     // Use to watch scss in sub-directory
     gulp.watch('components/sass/**/*.scss', ['compass']);
+    // *****
+    // Use to watch compress css in sub-directory
+    gulp.watch('Dest', ['cssMinify']);
+    // *****
+    // Use to watch scss in sub-directory
+    gulp.watch('Dest', ['jsMinify']);
     // *****
     gulp.watch('builds/development/*.html', ['html']);
     gulp.watch('builds/development/js/*.json', ['json']);
