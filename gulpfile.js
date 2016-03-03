@@ -12,6 +12,7 @@ var gulp = require('gulp');
     pngcrush = require('imagemin-pngcrush');
 	concat = require('gulp-concat');
     cleanCSS = require('gulp-clean-css');
+    var gzip = require('gulp-gzip');
 
 
 var env,
@@ -69,7 +70,16 @@ gulp.task('js', function() {
 gulp.task('jsMinify', function() {
   return gulp.src("Source")
     .pipe(uglify())
+    /*Enable to compress to gzip*/
+    /*.pipe(gzip())*/
     .pipe(gulp.dest("Dest"));
+});
+
+/* -------Gulp-gzip----------*/
+gulp.task('compress', function() {
+    gulp.src('Source')
+    .pipe(gzip())
+    .pipe(gulp.dest('Dest'));
 });
 
 /* -------Gulp-Compass----------*/
