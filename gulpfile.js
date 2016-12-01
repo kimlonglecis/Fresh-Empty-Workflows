@@ -12,7 +12,8 @@ var gulp = require('gulp');
     pngcrush = require('imagemin-pngcrush');
 	concat = require('gulp-concat');
     cleanCSS = require('gulp-clean-css');
-    var gzip = require('gulp-gzip');
+    gzip = require('gulp-gzip');
+    upmodul = require("gulp-update-modul");
 
 
 var env,
@@ -108,24 +109,7 @@ gulp.task('cssMinify', function() {
     .pipe(gulp.dest('Dest'));
 });
 
-/* -------Gulp-Watch----------*/
-gulp.task('watch', function(){
-    gulp.watch(coffeeSources, ['coffee']);
-    gulp.watch(jsSources, ['js']);
-    gulp.watch('components/sass/*.scss', ['compass']);
-    // Use to watch scss in sub-directory
-    gulp.watch('components/sass/**/*.scss', ['compass']);
-    // *****
-    // Use to watch compress css in sub-directory
-    gulp.watch('Dest', ['cssMinify']);
-    // *****
-    // Use to watch scss in sub-directory
-    gulp.watch('Dest', ['jsMinify']);
-    // *****
-    gulp.watch('builds/development/*.html', ['html']);
-    gulp.watch('builds/development/js/*.json', ['json']);
-    gulp.watch('builds/development/images/**/*.*', ['json'])
-    });
+
 
 /* -------Gulp-Connect----------*/
 gulp.task('connect', function(){
@@ -163,5 +147,30 @@ gulp.task('images', function() {
 
     });
 
+gulp.task('update-modul', function () {
+    gulp.src('package.json')
+    .pipe(upmodul('latest', 'false')); 
+
+
+/* -------Gulp-Watch----------*/
+gulp.task('watch', function(){
+    gulp.watch(coffeeSources, ['coffee']);
+    gulp.watch(jsSources, ['js']);
+    gulp.watch('components/sass/*.scss', ['compass']);
+    // Use to watch scss in sub-directory
+    gulp.watch('components/sass/**/*.scss', ['compass']);
+    // *****
+    // Use to watch compress css in sub-directory
+    gulp.watch('Dest', ['cssMinify']);
+    // *****
+    // Use to watch scss in sub-directory
+    gulp.watch('Dest', ['jsMinify']);
+    // *****
+    gulp.watch('builds/development/*.html', ['html']);
+    gulp.watch('builds/development/js/*.json', ['json']);
+    gulp.watch('builds/development/images/**/*.*', ['json']);
+    gulp.watch('package.json',['update-modul'])
+    });
+
 /* -------Gulp-Default----------*/
-gulp.task('default', ['html', 'json', 'coffee', 'js', 'compass', 'images','connect', 'watch']);
+gulp.task('default', ['html', 'json', 'coffee', 'js', 'compass', 'images','connect', 'update-modul','watch']);
