@@ -1,4 +1,4 @@
-.DS_Store
-.tmp
-.sass-cache
-builds/**/images*
+01-workflows/.DS_Store
+01-workflows/.tmp
+01-workflows/.sass-cache
+01-workflows/builds/**/images*
